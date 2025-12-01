@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    bootstrap="vendor/autoload.php"
+    colors="true"
+    verbose="true"
+>
+    <testsuites>
+        <testsuite name="Restaurant API Tests">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <php>
+        <!-- Prevent worker from running during tests -->
+        <ini name="max_execution_time" value="0"/>
+    </php>
+</phpunit>
