@@ -10,18 +10,18 @@ class OrderServiceTest extends TestCase
 
     protected function setUp(): void
     {
-        // Use a separate test database file
+        
         $this->dbFile = __DIR__ . '/../storage/orders_test.sqlite';
 
-        // Remove old test DB if exists
+        
         if (file_exists($this->dbFile)) {
             unlink($this->dbFile);
         }
 
-        // Override the database path for testing
+        
         Database::setTestDatabase($this->dbFile);
 
-        // Recreate fresh test database schema
+        
         $db = Database::connection();
         $db->exec("
             CREATE TABLE IF NOT EXISTS orders (
@@ -52,7 +52,7 @@ class OrderServiceTest extends TestCase
     {
         $service = new OrderService();
 
-        // Fill kitchen to 5 orders
+        
         for ($i = 0; $i < 5; $i++) {
             $service->createOrder([
                 "items" => ["item$i"],
@@ -60,7 +60,7 @@ class OrderServiceTest extends TestCase
             ]);
         }
 
-        // Try to add 6th non-VIP order → should fail with suggestion
+        
         $result = $service->createOrder([
             "items" => ["extra"],
             "pickup_time" => "2025-10-10T10:00:00Z"
@@ -74,7 +74,7 @@ class OrderServiceTest extends TestCase
     {
         $service = new OrderService();
 
-        // Fill kitchen with 5 orders
+        
         for ($i = 0; $i < 5; $i++) {
             $service->createOrder([
                 "items" => ["item$i"],
@@ -82,7 +82,7 @@ class OrderServiceTest extends TestCase
             ]);
         }
 
-        // VIP should still be accepted
+        
         $result = $service->createOrder([
             "items" => ["vip"],
             "pickup_time" => "2025-10-10T10:00:00Z",
@@ -113,13 +113,13 @@ class OrderServiceTest extends TestCase
     {
         $service = new OrderService();
 
-        // Non-VIP order
+        
         $service->createOrder([
             "items" => ["normal"],
             "pickup_time" => "2025-10-10T10:00:00Z"
         ]);
 
-        // VIP order
+        
         $service->createOrder([
             "items" => ["vip"],
             "VIP" => true,
@@ -128,7 +128,7 @@ class OrderServiceTest extends TestCase
 
         $orders = $service->getActiveOrders();
 
-        // VIP must always be first
+        
         $this->assertTrue($orders[0]["vip"]);
         $this->assertFalse($orders[1]["vip"]);
     }
