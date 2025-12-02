@@ -6,9 +6,9 @@ use App\Services\OrderService;
 
 $service = new OrderService();
 
-// Worker settings
-$checkIntervalSeconds = 30;          // Check every 30 seconds
-$autoCompleteMinutes = 10;           // Auto-complete after 10 minutes
+
+$checkIntervalSeconds = 30;          
+$autoCompleteMinutes = 10;           
 
 echo "=== Kitchen Worker Started ===\n";
 echo "Checking for orders every {$checkIntervalSeconds} seconds...\n";
@@ -24,7 +24,7 @@ while (true) {
         $createdAt = new DateTime($order['created_at']);
         $diff = $createdAt->diff($now);
 
-        // If older than PREP_MINUTES → auto complete
+        
         if ($diff->i >= $autoCompleteMinutes) {
             echo "✔ Auto-completing order ID {$order['id']} (created at {$order['created_at']})\n";
             $service->autoComplete((int)$order['id']);
