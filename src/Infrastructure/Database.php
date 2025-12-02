@@ -7,26 +7,24 @@ use PDO;
 class Database
 {
     private static ?PDO $conn = null;
-    private static ?string $overridePath = null; // <-- NEW
+    private static ?string $overridePath = null; 
 
-    /**
-     * Allow tests to override database file path
-     */
+    
     public static function setTestDatabase(string $path): void
     {
         self::$overridePath = $path;
-        self::$conn = null; // reset existing connection
+        self::$conn = null; 
     }
 
     public static function connection(): PDO
     {
         if (self::$conn === null) {
 
-            // Use test DB if set
+            
             $dbPath = self::$overridePath ??
                 (__DIR__ . '/../../storage/orders.sqlite');
 
-            // Ensure folder exists
+            
             $dir = dirname($dbPath);
             if (!is_dir($dir)) {
                 mkdir($dir, 0777, true);
