@@ -22,7 +22,7 @@ Built using **PHP 8**, **SQLite**, **Composer**, and a custom lightweight router
 - Background auto-completion worker (completes orders older than 10 minutes)
 - Full PHPUnit test suite (5 tests)
 
-*(Docker not included in this README as requested.)*
+
 
 ---
 
